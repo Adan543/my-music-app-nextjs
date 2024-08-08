@@ -11,7 +11,7 @@ export default function Home() {
       <HeroSection></HeroSection>
       <FeaturedCourses></FeaturedCourses>
       <WhyChooseUs/>
-      {/* <TestimonialCard/> */}
+      <TestimonialCard/>
     </main>
   );
 }

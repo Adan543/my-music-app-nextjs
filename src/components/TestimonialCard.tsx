@@ -1,121 +1,54 @@
-"use client";
+'use client'
+import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 
-import { cn } from "@/utils/cn";
-import React, { useEffect, useState } from "react";
+const musicSchoolTestimonials = [
+    {
+      quote:
+        'Joining the music school transformed my understanding of music and helped me to truly discover my own sound. The instructors are world-class!',
+      name: 'Alex Johnson',
+      title: 'Guitar Student',
+    },
+    {
+      quote:
+        "The community and support at this school are unmatched. I've grown not just as a pianist, but also as a performer, thanks to their comprehensive approach.",
+      name: 'Samantha Lee',
+      title: 'Piano Student',
+    },
+    {
+      quote:
+        "This school offered me the tools and confidence to take my singing to the next level. I'm endlessly grateful for the personalized coaching.",
+      name: 'Michael Chen',
+      title: 'Vocal Student',
+    },
+    {
+      quote:
+        'As a violinist, finding the right mentor can be challenging, but this school matched me with a teacher who truly understands my goals and challenges.',
+      name: 'Emily Taylor',
+      title: 'Violin Student',
+    },
+    {
+      quote:
+        'The production courses here opened my eyes to the intricacies of music production. Highly recommend for any aspiring producers!',
+      name: 'Chris Morales',
+      title: 'Music Production Student',
+    },
+  ];
 
-export const InfiniteMovingCards = ({
-  items,
-  direction = "left",
-  speed = "fast",
-  pauseOnHover = true,
-  className,
-}: {
-  items: {
-    quote: string;
-    name: string;
-    title: string;
-  }[];
-  direction?: "left" | "right";
-  speed?: "fast" | "normal" | "slow";
-  pauseOnHover?: boolean;
-  className?: string;
-}) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const scrollerRef = React.useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    addAnimation();
-  }, []);
-  const [start, setStart] = useState(false);
-  function addAnimation() {
-    if (containerRef.current && scrollerRef.current) {
-      const scrollerContent = Array.from(scrollerRef.current.children);
-
-      scrollerContent.forEach((item) => {
-        const duplicatedItem = item.cloneNode(true);
-        if (scrollerRef.current) {
-          scrollerRef.current.appendChild(duplicatedItem);
-        }
-      });
-
-      getDirection();
-      getSpeed();
-      setStart(true);
-    }
-  }
-  const getDirection = () => {
-    if (containerRef.current) {
-      if (direction === "left") {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "forwards"
-        );
-      } else {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "reverse"
-        );
-      }
-    }
-  };
-  const getSpeed = () => {
-    if (containerRef.current) {
-      if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s");
-      } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", "40s");
-      } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s");
-      }
-    }
-  };
+function MusicSchoolTestimonials() {
   return (
-    <div
-      ref={containerRef}
-      className={cn(
-        "scroller relative z-20  max-w-7xl overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
-        className
-      )}
-    >
-      <ul
-        ref={scrollerRef}
-        className={cn(
-          " flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
-          start && "animate-scroll ",
-          pauseOnHover && "hover:[animation-play-state:paused]"
-        )}
-      >
-        {items.map((item, idx) => (
-          <li
-            className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]"
-            style={{
-              background:
-                "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
-            }}
-            key={item.name}
-          >
-            <blockquote>
-              <div
-                aria-hidden="true"
-                className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-              ></div>
-              <span className=" relative z-20 text-sm leading-[1.6] text-gray-100 font-normal">
-                {item.quote}
-              </span>
-              <div className="relative z-20 mt-6 flex flex-row items-center">
-                <span className="flex flex-col gap-1">
-                  <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
-                    {item.name}
-                  </span>
-                  <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
-                    {item.title}
-                  </span>
-                </span>
-              </div>
-            </blockquote>
-          </li>
-        ))}
-      </ul>
+    <div className="h-[40rem] w-full bg-slate-500/10  relative flex flex-col items-center justify-center overflow-hidden">
+        <h2 className="text-3xl font-bold text-center mb-8 z-10">Hear our Harmony: Voices of success</h2>
+        <div className="flex justify-center w-full overflow-hidden px-4 sm:px-6 lg:px-8">
+            <div className="w-full max-w-6xl">
+            <InfiniteMovingCards
+                items={musicSchoolTestimonials}
+                direction="right"
+                speed="slow"
+      />
+            </div>
+        </div>
     </div>
-  );
-};
+  )
+}
+
+export default MusicSchoolTestimonials
